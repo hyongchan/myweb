@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM | 임형찬을 소개합니다</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 테마 및 변수 설정 (라이트모드 기본) --- */
+        :root {
+            --primary-blue: #0066CC;
+            --point-red: #FF3B30;
+            --bg-main: #ffffff;
+            --bg-card: #F4F7FA;
+            --text-main: #1D1D1F;
+            --text-muted: #666666;
+            --border-color: rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* --- 다크모드 변수 정의 --- */
+        [data-theme="dark"] {
+            --bg-main: #0A0F1D;
+            --bg-card: #11192E;
+            --text-main: #ffffff;
+            --text-muted: #a0aabf;
+            --border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* 고도화 1: 스크롤 진행률 바 */
+        #scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-blue), var(--point-red));
+            width: 0%;
+            z-index: 1000;
+            transition: width 0.1s ease-out;
+        }
+
+        /* 고도화 2: 토글 버튼 상단 고정 */
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        section {
+            padding: 40px 0;
+        }
+
+        .highlight-blue { color: var(--primary-blue); }
+        .highlight-red { color: var(--point-red); }
+
+        /* --- 1. 첫인상용 그래픽 영역 --- */
+        .hero-section {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 40px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .hero-image-box {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            aspect-ratio: 9 / 16;
+            max-height: 65vh;
+            background: #eaeaea;
+        }
+
+        .hero-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-text-box h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .hero-text-box .catchphrase {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        /* --- 2. 소개 (I AM 형찬) --- */
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .about-box {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            font-size: 1.05rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .about-box p {
+            margin-bottom: 15px;
+        }
+        .about-box p:last-child { margin-bottom: 0; }
+
+        /* --- 3 & 4. 여행지 리스트 레이아웃 --- */
+        .travel-grids {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 30px;
+        }
+
+        .list-card {
+            background-color: var(--bg-card);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+        }
+
+        .travel-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .travel-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--bg-main);
+            padding: 10px 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+
+        .travel-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--primary-blue);
+        }
+
+        .future-list {
+            grid-template-columns: 1fr;
+        }
+
+        .future-item:hover {
+            border-color: var(--point-red);
+        }
+
+        /* --- 푸터 --- */
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border-color);
+            margin-top: 60px;
+        }
+
+        /* 반응형 모바일 모드 */
+        @media (max-width: 768px) {
+            .hero-grid { grid-template-columns: 1fr; }
+            .hero-image-box { max-height: 45vh; order: -1; }
+            .hero-text-box h1 { font-size: 2.2rem; }
+            .travel-grids { grid-template-columns: 1fr; }
+            .travel-list { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 고도화 1: 상단 스크롤 진행률 바 -->
+    <div id="scroll-indicator"></div>
+
+    <!-- 고도화 2: 다크/라이트모드 토글 버튼 -->
+    <button class="theme-toggle-btn" id="theme-toggle">
+        <span id="theme-icon">☀️</span> <span id="theme-text">라이트 모드</span>
+    </button>
+
+    <div class="container">
+        
+        <!-- 1. 첫인상용 그래픽 영역 -->
+        <section class="hero-section">
+            <div class="hero-grid">
+                <!-- 왼쪽: 이름 및 SSAFY 타겟 맞춤형 추천 캐치프레이즈 -->
+                <div class="hero-text-box">
+                    <h1>반갑습니다!<br>임형찬입니다.</h1>
+                    <p class="catchphrase">
+                        "알고리즘의 한계도, 지구 반대편의 오지도 거침없이 뛰어넘는 에너제틱 탐험가"
+                    </p>
+                </div>
+                <!-- 오른쪽: 이름 옆 우유니 점프샷 이미지 배치 영역 -->
+                <div class="hero-image-box">
+                    <img src="IMG_0441.jpg" alt="임형찬 우유니 사막 점프샷" onerror="this.src='https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80';">
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 소개 (I AM 형찬) -->
+        <section id="about">
+            <h2 class="section-title">I AM <span class="highlight-blue">형찬</span></h2>
+            <div class="about-box">
+                <p>생각에 머무르기보다 직접 발로 뛰고 부딪치며 돌파할 때 가장 큰 에너지를 얻는 임형찬입니다.</p>
+                <p>영하의 혹한부터 산소가 부족한 고산지대까지 지구 반대편의 극한 환경을 주도적으로 극복해 온 경험이 있습니다. 이러한 경험으로 다져진 단단한 실행력과 리스크 관리 능력을 이제 SSAFY에서 동료 여러분과 함께 발휘하고 싶습니다. 캠퍼스 생활 동안 지치지 않는 긍정적인 자극을 주는 든든한 페이스메이커가 되겠습니다!</p>
+            </div>
+        </section>
+
+        <!-- 3 & 4. 여행 다녀온 곳 & 가보고 싶은 곳 한눈에 배치 -->
+        <section class="travel-grids">
+            
+            <!-- 3. 여행 다녀온 곳 (국가명 + 국기 이모티콘) -->
+            <div class="list-card">
+                <h3 style="font-weight: 900; font-size: 1.2rem;">🌍 발로 가본 도전의 흔적</h3>
+                <ul class="travel-list">
+                    <li class="travel-item">🇮🇸 아이슬란드</li>
+                    <li class="travel-item">🇫🇮 핀란드</li>
+                    <li class="travel-item">🇵🇪 페루</li>
+                    <li class="travel-item">🇧🇴 볼리비아</li>
+                    <li class="travel-item">🇨🇱 칠레</li>
+                    <li class="travel-item">🇦🇷 아르헨티나</li>
+                    <li class="travel-item">🇺🇾 우루과이</li>
+                    <li class="travel-item">🇧🇷 브라질</li>
+                    <li class="travel-item">🇰🇷 대한민국 구석구석</li>
+                </ul>
+            </div>
+
+            <!-- 4. 앞으로 가보고 싶은 여행지 -->
+            <div class="list-card" style="border-top: 4px solid var(--point-red);">
+                <h3 style="font-weight: 900; font-size: 1.2rem;">🚀 다음 타겟 여정</h3>
+                <ul class="travel-list future-list">
+                    <li class="travel-item future-item">🇲🇽 멕시코 — 정열의 문화와 고대 문명 탐험</li>
+                    <li class="travel-item future-item">🇧🇹 부탄 — 행복의 비밀을 찾는 은둔의 왕국</li>
+                    <li class="travel-item future-item">🇪🇬 이집트 — 인류 역사의 신비를 마주하는 곳</li>
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- 푸터 -->
+        <footer>
+            <p>© 2026 임형찬. SSAFY 반 친구들을 위한 웹 페이지 | 코딩도 여행처럼 주도적으로!</p>
+        </footer>
+
+    </div>
+
+    <!-- 6. 디자인 고도화 요소 인터랙션 제어 스크립트 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- 고도화 1: 스크롤 진행률 기능 구현 ---
+            const scrollIndicator = document.getElementById('scroll-indicator');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.scrollY; // 현재 스크롤 위치
+                const docHeight = document.documentElement.scrollHeight - window.innerHeight; // 스크롤 가능한 총 길이
+                const scrollPercentage = (scrollTop / docHeight) * 100;
+                
+                scrollIndicator.style.width = scrollPercentage + '%';
+            });
+
+            // --- 고도화 2: 다크모드 / 라이트모드 토글 기능 구현 ---
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            let isDark = false;
+
+            themeToggleBtn.addEventListener('click', () => {
+                isDark = !isDark;
+                
+                if (isDark) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    themeIcon.textContent = '🌙';
+                    themeText.textContent = '다크 모드';
+                    themeToggleBtn.style.backgroundColor = '#11192E';
+                } else {
+                    document.documentElement.removeAttribute('data-theme');
+                    themeIcon.textContent = '☀️';
+                    themeText.textContent = '라이트 모드';
+                    themeToggleBtn.style.backgroundColor = '#F4F7FA';
+                }
+            });
+            
+            console.log("스크롤 인디케이터 및 다크모드 시스템 로드 완료 🚀");
+        });
+    </script>
+</body>
+</html>
