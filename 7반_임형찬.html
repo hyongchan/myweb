@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I AM | 임형찬 프로젝트</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-blue: #0066CC;    /* 우유니 사막의 깊은 푸른색 */
+            --point-red: #FF3B30;       /* 판초의 강렬한 붉은색 */
+            --bg-dark: #0A0F1D;         /* 깊이감 있는 어두운 배경 */
+            --bg-light: #F4F7FA;        /* 카드 및 대조 배경 */
+            --text-main: #1D1D1F;
+            --text-muted: #666666;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .highlight-blue { color: var(--primary-blue); }
+        .highlight-red { color: var(--point-red); }
+
+        /* --- 상단 히어로 & 프로필 섹션 (한눈에 보는 구성) --- */
+        .main-profile-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #ffffff 60%, var(--bg-light) 100%);
+            padding: 80px 0;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* 왼쪽: 텍스트 정보 및 핵심 내용 */
+        .intro-text-box h2 {
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .intro-text-box h1 {
+            font-size: 3.2rem;
+            font-weight: 900;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            letter-spacing: -1.5px;
+            word-break: keep-all;
+        }
+
+        .catchphrase {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            line-height: 1.5;
+            word-break: keep-all;
+        }
+
+        /* 핵심 요약 타임라인/내용 한눈에 보기 */
+        .summary-dashboard {
+            background: #ffffff;
+            border-left: 4px solid var(--primary-blue);
+            padding: 25px;
+            border-radius: 0 16px 16px 0;
+            box-shadow: 0 10px 30px rgba(0, 102, 204, 0.05);
+            margin-bottom: 35px;
+        }
+
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .destination-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: var(--bg-light);
+            color: var(--bg-dark);
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: var(--transition);
+        }
+        .tag:hover {
+            background-color: var(--primary-blue);
+            color: #ffffff;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #ffffff;
+            background-color: var(--point-red);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(255, 59, 48, 0.3);
+            transition: var(--transition);
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 59, 48, 0.5);
+        }
+
+        /* 오른쪽: 이름 바로 옆에 위치하는 첨부 이미지 영역 */
+        .image-frame {
+            position: relative;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(10, 15, 29, 0.15);
+            aspect-ratio: 9 / 16;
+            max-height: 75vh;
+            background-color: var(--bg-dark);
+        }
+
+        .image-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .image-frame:hover img {
+            transform: scale(1.03);
+        }
+
+        /* 이미지 위 오버레이 태그 */
+        .img-overlay-badge {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            background: rgba(10, 15, 29, 0.75);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* --- 하단 핵심 역량 DNA 섹션 --- */
+        .dna-section {
+            padding: 100px 0;
+            background-color: var(--bg-dark);
+            color: #ffffff;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: -1px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .card {
+            background: #11192E;
+            border-radius: 20px;
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 15px 35px rgba(0, 102, 204, 0.2);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+        }
+
+        .card h3 {
+            font-size: 1.35rem;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .card p {
+            color: #a0aabf;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        /* --- 푸터 --- */
+        footer {
+            background-color: #050811;
+            color: #55607a;
+            padding: 30px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #11192e;
+        }
+
+        /* --- 반응형 모바일 레이아웃 --- */
+        @media (max-width: 992px) {
+            .main-profile-section { padding: 40px 0; }
+            .profile-grid { grid-template-columns: 1fr; gap: 40px; }
+            .image-frame { max-height: 50vh; order: -1; } /* 모바일에선 이미지가 위로 */
+            .intro-text-box h1 { font-size: 2.5rem; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 메인 프로필 & 핵심 내용 섹션 (이름 옆 이미지 배치) -->
+    <section class="main-profile-section">
+        <div class="container profile-grid">
+            
+            <!-- 왼쪽: 핵심 브랜딩 텍스트 대시보드 -->
+            <div class="intro-text-box">
+                <h2>PROJECT I AM</h2>
+                <h1>탐험가 <span class="highlight-blue">임형찬</span>입니다.</h1>
+                <p class="catchphrase">"북극광에서 안데스까지, 세상의 끝에서 던진 임형찬의 느낌표"</p>
+                
+                <!-- 핵심 요약 내용 (한눈에 들어오는 배치) -->
+                <div class="summary-dashboard">
+                    <div class="summary-title">🌍 발로 뛰며 증명한 도전의 흔적</div>
+                    <div class="destination-tags">
+                        <span class="badge tag">📍 아이슬란드</span>
+                        <span class="badge tag">📍 핀란드</span>
+                        <span class="badge tag">📍 페루</span>
+                        <span class="badge tag">📍 볼리비아</span>
+                        <span class="badge tag">📍 칠레</span>
+                        <span class="badge tag">📍 아르헨티나</span>
+                        <span class="badge tag">📍 우루과이</span>
+                        <span class="badge tag">📍 브라질</span>
+                        <span class="badge tag">📍 국내 방방곡곡</span>
+                    </div>
+                </div>
+
+                <div class="summary-dashboard" style="border-left-color: var(--point-red);">
+                    <div class="summary-title" style="color: var(--point-red);">⚡ 핵심 가치 한 줄 요약</div>
+                    <p style="font-size: 0.95rem; color: var(--text-muted); font-weight: 500;">
+                        단순한 관광을 넘어 오지와 극한의 기후 속 리스크를 직접 돌파하며 단련된 <strong>단단한 실행력</strong>과 <strong>글로벌 문제 해결력</strong>을 갖춘 동료입니다.
+                    </p>
+                </div>
+
+                <a href="mailto:your-email@example.com" class="btn-cta" id="ctaBtn">프로젝트 제안하기</a>
+            </div>
+
+            <!-- 오른쪽: 이름 바로 옆에 놓일 첨부 이미지 영역 -->
+            <div class="image-frame">
+                <!-- 이미지 파일명을 매칭하여 넣어주세요. (예: IMG_0441.jpg가 같은 폴더에 있을 때) -->
+                <img src="IMG_0441.jpg" alt="임형찬 우유니 사막 점프 이미지" onerror="this.src='https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1000&q=80'; console.log('이미지 경로를 확인해 주세요.');">
+                <div class="img-overlay-badge">📍 볼리비아 우유니 소금사막에서</div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 하단: 동료를 위한 3가지 DNA 검증 섹션 -->
+    <section class="dna-section">
+        <div class="container">
+            <h2 class="section-title">동료가 신뢰할 수 있는 <span class="highlight-blue">3가지 DNA</span></h2>
+            <div class="card-grid">
+                <!-- 카드 1 -->
+                <div class="card">
+                    <div class="card-icon">⚡</div>
+                    <h3>압도적인 실행력</h3>
+                    <p>생각에만 머무르지 않고 즉각 행동으로 옮깁니다. 낯선 환경에서도 주도적으로 방향을 설정하고 빠르게 첫 발을 내딛는 동료입니다.</p>
+                </div>
+                <!-- 카드 2 -->
+                <div class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>리스크 관리 역량</h3>
+                    <p>예상치 못한 돌발 상황과 기후 리스크 변화 속에서도 흔들리지 않고 냉철하게 현상을 분석하여 목표를 완수해 냅니다.</p>
+                </div>
+                <!-- 카드 3 -->
+                <div class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>에너제틱 시너지</h3>
+                    <p>중력을 거슬러 솟구치듯 지치지 않는 활력과 긍정적인 에너지를 팀에 불어넣어 프로젝트의 한계를 함께 돌파합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer>
+        <div class="container">
+            <p>© 2026 임형찬. All Rights Reserved. | I AM 브랜딩 포트폴리오</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("%c🚀 임형찬의 'I AM' 포트폴리오 대시보드가 준비되었습니다!", "color: #0066CC; font-size: 14px; font-weight: bold;");
+            
+            // 간단한 인터랙션: CTA 버튼 클릭 이벤트
+            const ctaBtn = document.getElementById('ctaBtn');
+            ctaBtn.addEventListener('click', (e) => {
+                // 이메일 주소를 아직 바꾸지 않았을 때 경고창 띄우기 (실제 이메일 기입 시 주석 처리 가능)
+                if(ctaBtn.getAttribute('href') === 'mailto:your-email@example.com') {
+                    e.preventDefault();
+                    alert('코드를 열어 이메일 주소(mailto:)나 연락처 링크를 실제 정보로 수정해 주세요!');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
